@@ -8,7 +8,13 @@
   <title>Battleship</title>
 </head>
 <body>
-  <h1>Battleship</h1>
+
+  <div class="container" id="left-container">
+    <button class="button" id="start-button">Start</button>
+  </div>
+
+  <div class="container" id="center-container">
+    <h1>Battleship</h1>
   <table>
     <tr>
       <th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th><th>G</th><th>H</th><th>I</th><th>J</th>
@@ -44,6 +50,13 @@
       <th>10</th><td class="coordinate" id="A10"></td><td class="coordinate" id="B10"></td><td class="coordinate" id="C10"></td><td class="coordinate" id="D10"></td><td class="coordinate" id="E10"></td><td class="coordinate" id="F10"></td><td class="coordinate" id="G10"></td><td class="coordinate" id="H10"></td><td class="coordinate" id="I10"></td><td class="coordinate" id="J10"></td>
     </tr>
   </table>
+  </div>
+
+  <div class="container" id="right-container">
+    <p>Choose a coordinate</p>
+    <p id="coordinate"></p>
+  </div>
+  
 
   <script src="script.js"></script>
 </body>
