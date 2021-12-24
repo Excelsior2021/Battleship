@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+table {
+  border-spacing: 0px;
+}
+
+td {
+    border: 0.5px black solid;
+    width: 45px;
+    height: 45px;
+}
+
+.hit {
+    background-color: red;
+}
+
+.miss {
+    background-color: blue;
+}
