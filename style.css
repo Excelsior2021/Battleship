@@ -3,6 +3,9 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0px;
+    /* color: white;
+    background: url(images/background.jpg) no-repeat center;
+    background-size: cover; */
 }
 
 .container {
@@ -43,9 +46,11 @@ td {
 }
 
 .hit {
-    background-color: red;
+    background: url(images/hit.png) no-repeat center;
+    background-size: 30px;
 }
 
 .miss {
-    background-color: blue;
+    background: url(images/miss.png) no-repeat center;
+    background-size: 30px;
 }
