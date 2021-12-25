@@ -3,9 +3,9 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0px;
-    /* color: white;
+    color: white;
     background: url(images/background.jpg) no-repeat center;
-    background-size: cover; */
+    background-size: cover;
 }
 
 .container {

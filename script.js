@@ -1,6 +1,7 @@
 const coordinates = document.getElementsByClassName("coordinate");
 let count = 0
 let alreadyShot = []
+let alreadySunk = []
 const ships = [
     {name: "Carrier", size: 5, location: ["A1", "B1", "C1", "D1", "E1"],},
     {name: "Battleship", size: 4, location: ["J7", "J8", "J9", "J10"],},
@@ -35,9 +36,9 @@ function log(evt) {
             count++;
             shots.innerHTML = "Shots taken: " + count
             alreadyShot.push(id)
+            sunk(ships, alreadyShot, confirmation)
     }
 }
-
 
 function confirm(id) {
     for(let i = 0; i<ships.length; i++) {
@@ -57,4 +58,20 @@ function alreadyShotFunction(id, alreadyShot) {
         }
     }
     return false
+}
+
+function sunk(ships, alreadyShot, confirmation) {
+    for(i=0;i<ships.length;i++) {
+        const check = []
+        for(let x in ships[i].location) {
+            for(let y in alreadyShot) {
+                if(ships[i].location[x]===alreadyShot[y]) {
+                    check.push(ships[i].location[x])
+                }
+            }
+        } if(check.length === ships[i].size && !alreadySunk.includes(ships[i].name)) {
+            alreadySunk.push(ships[i].name);
+            return confirmation.innerHTML = "You sunk the " + ships[i].name;
+        }
+    } 
 }
