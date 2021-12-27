@@ -3,9 +3,9 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0px;
-    color: white;
+    /* color: white;
     background: url(images/background.jpg) no-repeat center;
-    background-size: cover;
+    background-size: cover; */
 }
 
 .container {
@@ -21,6 +21,35 @@ body {
     align-items: center;
     justify-content: center;
     width: 25vw;
+}
+
+#ships {
+    position: absolute;
+    margin-bottom: 400px;
+    text-align: center;
+    /* border: 1px black solid; */
+}
+
+#ships-title {
+    margin: 5px;
+    padding: 0;
+    text-align: center;
+    border-bottom: 1px black solid;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    padding: 2px;
+}
+
+.sunk-ship {
+    text-decoration: line-through;
+    color: darkgray;
 }
 
 .button {

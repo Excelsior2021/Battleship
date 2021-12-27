@@ -1,4 +1,5 @@
 const coordinates = document.getElementsByClassName("coordinate");
+const active_ships = document.querySelectorAll(".ship")
 let count = 0
 let alreadyShot = []
 let alreadySunk = []
@@ -71,7 +72,12 @@ function sunk(ships, alreadyShot, confirmation) {
             }
         } if(check.length === ships[i].size && !alreadySunk.includes(ships[i].name)) {
             alreadySunk.push(ships[i].name);
+            active_ships.forEach((ship) => {
+                if(ships[i].name == ship.innerHTML) {
+                    ship.classList.add("sunk-ship")
+                }
+            })
             return confirmation.innerHTML = "You sunk the " + ships[i].name;
-        }
+        } 
     } 
 }
