@@ -1,5 +1,6 @@
 const coordinates = document.getElementsByClassName("coordinate");
 const active_ships = document.querySelectorAll(".ship")
+const restart = document.getElementById("restart-button")
 let count = 0
 let alreadyShot = []
 let alreadySunk = []
@@ -11,6 +12,14 @@ const ships = [
     {name: "Destroyer", size: 2, location: ["I2", "I3"],},
 ]
 
+restart.onclick = () => {
+    location.reload()
+}
+
+function gameOver() {
+    removeEventListener("click", log)
+}
+
 for (let i = 0; i < coordinates.length; i++) {
     coordinates[i].onclick = log;
 }
@@ -21,23 +30,31 @@ function log(evt) {
     let player_coordinate = document.getElementById("coordinate");
     let confirmation = document.getElementById("confirmation");
     let shots = document.getElementById("shots");
+    let game_over = document.getElementById("game-over")
 
-    if(alreadyShotFunction(id, alreadyShot)) {
-        confirmation.innerHTML = "You have already shot this coordinate. Select another!";
+    if(alreadySunk.length===ships.length) {
+        game_over.innerHTML = "You have completed the game. It took you " + count + " shots."
+        gameOver()
+    }
+    else if (alreadyShotFunction(id, alreadyShot)) {
+        confirmation.innerHTML = "You have already shot this coordinate. Select another coordinate!";
         player_coordinate.innerHTML = id;
     } else {
-            if(confirm(id)) {
-                coordinate.classList.add("hit")
-                confirmation.innerHTML = "You hit a ship!"
-            } else {
-                coordinate.classList.add("miss")
-                confirmation.innerHTML = "Missed!"
-            }
-            player_coordinate.innerHTML = id;
-            count++;
-            shots.innerHTML = "Shots taken: " + count
-            alreadyShot.push(id)
-            sunk(ships, alreadyShot, confirmation)
+        if(confirm(id)) {
+            coordinate.classList.add("hit")
+            confirmation.innerHTML = "You hit a ship!"
+        } else {
+            coordinate.classList.add("miss")
+            confirmation.innerHTML = "Missed!"
+        }
+        player_coordinate.innerHTML = id;
+        count++;
+        shots.innerHTML = "Shots taken: " + count
+        alreadyShot.push(id)
+        sunk(ships, alreadyShot, confirmation)
+        if(alreadySunk.length===ships.length) {
+            game_over.innerHTML = "You have completed the game. It took you " + count + " shots."
+        }
     }
 }
 
@@ -53,8 +70,8 @@ function confirm(id) {
 }
 
 function alreadyShotFunction(id, alreadyShot) {
-    for(i=0;i<alreadyShot.length;i++) {
-        if(id===alreadyShot[i]) {
+    for(i=0; i<alreadyShot.length; i++) {
+        if(id === alreadyShot[i]) {
             return true
         }
     }
