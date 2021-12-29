@@ -29,16 +29,15 @@ function log(evt) {
     let coordinate = document.getElementById(id)
     let player_coordinate = document.getElementById("coordinate");
     let confirmation = document.getElementById("confirmation");
-    let shots = document.getElementById("shots");
+    // let shots = document.getElementById("shots");
     let game_over = document.getElementById("game-over")
 
     if(alreadySunk.length===ships.length) {
-        game_over.innerHTML = "You have completed the game. It took you " + count + " shots."
         gameOver()
     }
     else if (alreadyShotFunction(id, alreadyShot)) {
         confirmation.innerHTML = "You have already shot this coordinate. Select another coordinate!";
-        player_coordinate.innerHTML = id;
+        player_coordinate.innerHTML = "Coordinate: " + id;
     } else {
         if(confirm(id)) {
             coordinate.classList.add("hit")
@@ -47,13 +46,13 @@ function log(evt) {
             coordinate.classList.add("miss")
             confirmation.innerHTML = "Missed!"
         }
-        player_coordinate.innerHTML = id;
+        player_coordinate.innerHTML = "Coordinate: " + id;
         count++;
-        shots.innerHTML = "Shots taken: " + count
+        // shots.innerHTML = "Shots taken: " + count
         alreadyShot.push(id)
         sunk(ships, alreadyShot, confirmation)
         if(alreadySunk.length===ships.length) {
-            game_over.innerHTML = "You have completed the game. It took you " + count + " shots."
+            game_over.innerHTML = "You have completed the game. It took you " + count + " shots. Restart the game to play again."
         }
     }
 }
@@ -94,7 +93,7 @@ function sunk(ships, alreadyShot, confirmation) {
                     ship.classList.add("sunk-ship")
                 }
             })
-            return confirmation.innerHTML = "You sunk the " + ships[i].name;
+            return confirmation.innerHTML = "You sunk the " + ships[i].name + ".";
         } 
     } 
 }
