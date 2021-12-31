@@ -4,6 +4,7 @@ const restart = document.getElementById("restart-button")
 let count = 0
 let alreadyShot = []
 let alreadySunk = []
+let alreadyTaken = []
 const ships = [
     {name: "Carrier", size: 5, location: [],},
     {name: "Battleship", size: 4, location: [],},
@@ -14,30 +15,30 @@ const ships = [
 
 function setPosition(ships) {
     const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     ships.forEach((ship) => {
-        let dir = direction()
-        if(dir===0) {
-            let index = Math.floor(Math.random()*10)
-            let row = letters[index]
-            horizontal(ship, row)
-        } else if(dir===1) {
-            vertical(ship, letters)
-        }
+        locations(ship, letters)
     })
 }
 
-function direction() {
-    return Math.floor(Math.random()*2)
+function locations(ship, letters) {
+    let direction = Math.floor(Math.random()*2)
+    if(direction===0) {
+        let index = Math.floor(Math.random()*10)
+        let row = letters[index]
+        horizontal(ship, row)
+    } else if(direction===1) {
+        vertical(ship, letters)
+    }
+    checkCollision(ship, letters)
 }
 
 function horizontal(ship, row) {
     let startPos = Math.floor(Math.random()*(10-ship.size)) + 1;
     for(i=0;i<ship.size;i++) {
-        ship.location.push(row + (startPos+i))
+        let coordinate = row + (startPos+i)
+        ship.location.push(coordinate)
     }
-    
 }
 
 function vertical(ship, letters) {
@@ -46,6 +47,18 @@ function vertical(ship, letters) {
     for(i=0;i<ship.size;i++) {
         ship.location.push(letters[startPos+i] + number)
     }
+}
+
+function checkCollision(ship, letters) {
+    ship.location.forEach((coordinate) => {
+        if(alreadyTaken.includes(coordinate)) {
+            ship.location = []
+            locations(ship, letters)
+        } 
+    })
+    ship.location.forEach((coordinate) => {
+        alreadyTaken.push(coordinate)
+    })
 }
 
 restart.onclick = () => {
