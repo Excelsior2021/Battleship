@@ -5,12 +5,48 @@ let count = 0
 let alreadyShot = []
 let alreadySunk = []
 const ships = [
-    {name: "Carrier", size: 5, location: ["A1", "B1", "C1", "D1", "E1"],},
-    {name: "Battleship", size: 4, location: ["J7", "J8", "J9", "J10"],},
-    {name: "Cruiser", size: 3, location: ["D4", "E4", "F4"],},
-    {name: "Submarine", size: 3, location: ["E7", "E8", "E9"],},
-    {name: "Destroyer", size: 2, location: ["I2", "I3"],},
+    {name: "Carrier", size: 5, location: [],},
+    {name: "Battleship", size: 4, location: [],},
+    {name: "Cruiser", size: 3, location: [],},
+    {name: "Submarine", size: 3, location: [],},
+    {name: "Destroyer", size: 2, location: [],},
 ]
+
+function setPosition(ships) {
+    const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+    const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    ships.forEach((ship) => {
+        let dir = direction()
+        if(dir===0) {
+            let index = Math.floor(Math.random()*10)
+            let row = letters[index]
+            horizontal(ship, row)
+        } else if(dir===1) {
+            vertical(ship, letters)
+        }
+    })
+}
+
+function direction() {
+    return Math.floor(Math.random()*2)
+}
+
+function horizontal(ship, row) {
+    let startPos = Math.floor(Math.random()*(10-ship.size)) + 1;
+    for(i=0;i<ship.size;i++) {
+        ship.location.push(row + (startPos+i))
+    }
+    
+}
+
+function vertical(ship, letters) {
+    let startPos = Math.floor(Math.random()*(10-ship.size))
+    const number = Math.floor(Math.random()*10) + 1
+    for(i=0;i<ship.size;i++) {
+        ship.location.push(letters[startPos+i] + number)
+    }
+}
 
 restart.onclick = () => {
     location.reload()
@@ -97,3 +133,6 @@ function sunk(ships, alreadyShot, confirmation) {
         } 
     } 
 }
+
+setPosition(ships)
+console.log(ships)

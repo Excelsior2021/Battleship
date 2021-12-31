@@ -102,3 +102,7 @@ td {
     background: url(images/miss.png) no-repeat center;
     background-size: 30px;
 }
+
+th {
+    padding-right: 5px;
+}
