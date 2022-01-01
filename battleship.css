@@ -70,8 +70,18 @@ li {
 }
 
 .button {
-    height: 20px;
-    
+    position: absolute;
+    bottom: -40px;
+    font-family: 'Roboto Mono', monospace;
+    color: white;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid white;
+}
+
+.button:hover {
+    border: 1.5px solid white;
+    cursor: pointer;
 }
 
 #center-container {

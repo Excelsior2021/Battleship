@@ -148,4 +148,3 @@ function sunk(ships, alreadyShot, confirmation) {
 }
 
 setPosition(ships)
-console.log(ships)
