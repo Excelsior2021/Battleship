@@ -78,7 +78,6 @@ function log(evt) {
     let coordinate = document.getElementById(id)
     let player_coordinate = document.getElementById("coordinate");
     let confirmation = document.getElementById("confirmation");
-    // let shots = document.getElementById("shots");
     let game_over = document.getElementById("game-over")
 
     if(alreadySunk.length===ships.length) {
