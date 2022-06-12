@@ -9,18 +9,17 @@
   <title>Battleship</title>
 </head>
 <body>
-
-  <div class="container" id="left-container">
+  <div class="container container--side">
     <h3>Instructions</h3>
     <p>Based on the classic game Battleship. There are 5 ships in the enemy's fleet. Shoot down all the
       ships. Try to shoot down the enemy's fleet in the least amount of shots.
     </p>
     <br>
     <p>Click on any coordinate to start. To restart the game, click the button below.</p>
-    <button type="button" class="button" id="restart-button">Restart</button>
+    <button class="button" id="restart-button">Restart</button>
   </div>
 
-  <div class="container" id="center-container">
+  <div class="container container--center">
     <h1>Battleship</h1>
   <table>
     <tr>
@@ -59,21 +58,20 @@
   </table>
   </div>
 
-  <div class="container" id="right-container">
-    <div id="ships">
-      <h3 id="ships-title">Ships</h3>
+  <div class="container container--side">
+    <div class="ships">
+      <h3>Ships</h3>
       <ul>
-        <li class="ship" id="Carrier">Carrier</li>
-        <li class="ship" id="Battleship">Battleship</li>
-        <li class="ship" id="Cruiser">Cruiser</li>
-        <li class="ship" id="Submarine">Submarine</li>
-        <li class="ship" id="Destroyer">Destroyer</li>
+        <li class="ship">Carrier</li>
+        <li class="ship">Battleship</li>
+        <li class="ship">Cruiser</li>
+        <li class="ship">Submarine</li>
+        <li class="ship">Destroyer</li>
       </ul>
     </div>
-    <div id="status">
+    <div class="status">
       <p id="coordinate">Choose a coordinate</p>
       <p id="confirmation"></p>
-      <!-- <p id="shots">0 shots</p> -->
       <p id="game-over"></p>
     </div>
   </div>
