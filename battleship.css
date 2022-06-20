@@ -9,6 +9,8 @@ body {
     height: auto;
     color: white;
     background: url(images/background1.jpg) center;
+    background-repeat: no-repeat;
+    background-color:rgba(3,8,12);
 }
 
 h3 {
