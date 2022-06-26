@@ -6,11 +6,11 @@ let alreadyShot = []
 let alreadySunk = []
 let alreadyTaken = []
 const ships = [
-    { name: "Carrier", size: 5, location: [], },
-    { name: "Battleship", size: 4, location: [], },
-    { name: "Cruiser", size: 3, location: [], },
-    { name: "Submarine", size: 3, location: [], },
-    { name: "Destroyer", size: 2, location: [], },
+    { name: "Carrier", size: 5, location: [] },
+    { name: "Battleship", size: 4, location: [] },
+    { name: "Cruiser", size: 3, location: [] },
+    { name: "Submarine", size: 3, location: [] },
+    { name: "Destroyer", size: 2, location: [] },
 ]
 
 function setPosition(ships) {
@@ -24,25 +24,23 @@ function setPosition(ships) {
 function locations(ship, letters) {
     let direction = Math.floor(Math.random() * 2)
     if (direction === 0) {
-        let index = Math.floor(Math.random() * 10)
-        let row = letters[index]
-        horizontal(ship, row)
+        horizontal(ship, letters)
     } else if (direction === 1) {
         vertical(ship, letters)
     }
     checkCollision(ship, letters)
 }
 
-function horizontal(ship, row) {
-    let startPos = Math.floor(Math.random() * (10 - ship.size)) + 1;
+function horizontal(ship, letters) {
+    const row = letters[Math.floor(Math.random() * 10)]
+    const startPos = Math.floor(Math.random() * (10 - ship.size)) + 1;
     for (i = 0; i < ship.size; i++) {
-        let coordinate = row + (startPos + i)
-        ship.location.push(coordinate)
+        ship.location.push(row + (startPos + i))
     }
 }
 
 function vertical(ship, letters) {
-    let startPos = Math.floor(Math.random() * (10 - ship.size))
+    const startPos = Math.floor(Math.random() * (10 - ship.size))
     const number = Math.floor(Math.random() * 10) + 1
     for (i = 0; i < ship.size; i++) {
         ship.location.push(letters[startPos + i] + number)
@@ -56,7 +54,7 @@ function checkCollision(ship, letters) {
             locations(ship, letters)
         }
     })
-    ship.location.forEach((coordinate) => {
+    ship.location.forEach(coordinate => {
         alreadyTaken.push(coordinate)
     })
 }
@@ -69,22 +67,21 @@ function gameOver() {
     removeEventListener("click", log)
 }
 
-for (let i = 0; i < coordinates.length; i++) {
-    coordinates[i].onclick = log;
+for (let coordinate of coordinates) {
+    coordinate.onclick = log;
 }
 
 function log(evt) {
-    let id = evt.target.id;
-    let coordinate = document.getElementById(id)
-    let player_coordinate = document.getElementById("coordinate");
-    let confirmation = document.getElementById("confirmation");
-    let game_over = document.getElementById("game-over")
+    const id = evt.target.id;
+    const coordinate = document.getElementById(id)
+    const player_coordinate = document.getElementById("coordinate");
+    const confirmation = document.getElementById("confirmation");
+    const game_over = document.getElementById("game-over")
 
     if (alreadySunk.length === ships.length) {
         gameOver()
-    }
-    else if (alreadyShotFunction(id, alreadyShot)) {
-        confirmation.innerHTML = "You have already shot this coordinate. Select another coordinate!";
+    } else if (alreadyShotFunction(id, alreadyShot)) {
+        confirmation.innerHTML = "You have already shot this coordinate. Please select another coordinate!";
         player_coordinate.innerHTML = "Coordinate: " + id;
     } else {
         if (confirm(id)) {
@@ -105,9 +102,9 @@ function log(evt) {
 }
 
 function confirm(id) {
-    for (let i = 0; i < ships.length; i++) {
-        for (let j = 0; j < ships[i].location.length; j++) {
-            if (id === ships[i].location[j]) {
+    for (let ship of ships) {
+        for (let coordinate of ship.location) {
+            if (id === coordinate) {
                 return true
             }
         }
@@ -116,8 +113,8 @@ function confirm(id) {
 }
 
 function alreadyShotFunction(id, alreadyShot) {
-    for (i = 0; i < alreadyShot.length; i++) {
-        if (id === alreadyShot[i]) {
+    for (let coordinate of alreadyShot) {
+        if (id === coordinate) {
             return true
         }
     }
@@ -125,22 +122,22 @@ function alreadyShotFunction(id, alreadyShot) {
 }
 
 function sunk(ships, alreadyShot, confirmation) {
-    for (i = 0; i < ships.length; i++) {
+    for (let ship of ships) {
         const check = []
-        for (let x in ships[i].location) {
-            for (let y in alreadyShot) {
-                if (ships[i].location[x] === alreadyShot[y]) {
-                    check.push(ships[i].location[x])
+        for (let coordinateX of ship.location) {
+            for (let coordinateY of alreadyShot) {
+                if (coordinateX === coordinateY) {
+                    check.push(coordinateX)
                 }
             }
-        } if (check.length === ships[i].size && !alreadySunk.includes(ships[i].name)) {
-            alreadySunk.push(ships[i].name);
-            active_ships.forEach((ship) => {
-                if (ships[i].name == ship.innerHTML) {
-                    ship.classList.add("sunk-ship")
+        } if (check.length === ship.size && !alreadySunk.includes(ship.name)) {
+            alreadySunk.push(ship.name);
+            active_ships.forEach(active_ship => {
+                if (ship.name == active_ship.innerHTML) {
+                    active_ship.classList.add("sunk-ship")
                 }
             })
-            return confirmation.innerHTML = "You sunk the " + ships[i].name + ".";
+            return confirmation.innerHTML = "You sunk the " + ship.name + ".";
         }
     }
 }
