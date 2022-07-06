@@ -13,7 +13,7 @@ body {
     background-color:rgba(3,8,12);
 }
 
-a {
+.container--center a {
     text-decoration: none;
     color: inherit;
 }
