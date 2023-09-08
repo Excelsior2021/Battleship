@@ -4,202 +4,51 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="battleship.css" />
+    <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="./images/favicon.png" />
+    <script src="index.js" defer></script>
     <title>Battleship</title>
   </head>
   <body>
+    <a
+      class="link"
+      href="https://jonathankila.vercel.app/"
+      target="_blank"
+      rel="noreferrer"
+      ><h1 class="heading">Battleship</h1></a
+    >
     <div class="container">
-      <div class="container--side">
-        <h3>Instructions</h3>
+      <div class="instructions">
+        <h2 class="sub-heading">Instructions</h2>
         <p>
           Based on the classic game Battleship. There are 5 ships in the enemy's
           fleet. Shoot down all the ships. Try to shoot down the enemy's fleet
           in the least amount of shots.
         </p>
-        <br />
         <p>
           Click on any coordinate to start. To restart the game, click the
           button below.
         </p>
-        <button class="button" id="restart-button">Restart</button>
+        <button class="restart-button" id="restart-button">Restart</button>
       </div>
 
-      <div class="container--center">
-        <a
-          href="https://jonathankila.vercel.app/"
-          target="_blank"
-          rel="noreferrer"
-          ><h1>Battleship</h1></a
-        >
-        <table>
-          <tr>
+      <div class="game">
+        <table id="table" class="table">
+          <tr id="coord-nums">
             <th></th>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>5</th>
-            <th>6</th>
-            <th>7</th>
-            <th>8</th>
-            <th>9</th>
-            <th>10</th>
-          </tr>
-          <tr>
-            <th>A</th>
-            <td class="coordinate" id="A1"></td>
-            <td class="coordinate" id="A2"></td>
-            <td class="coordinate" id="A3"></td>
-            <td class="coordinate" id="A4"></td>
-            <td class="coordinate" id="A5"></td>
-            <td class="coordinate" id="A6"></td>
-            <td class="coordinate" id="A7"></td>
-            <td class="coordinate" id="A8"></td>
-            <td class="coordinate" id="A9"></td>
-            <td class="coordinate" id="A10"></td>
-          </tr>
-          <tr>
-            <th>B</th>
-            <td class="coordinate" id="B1"></td>
-            <td class="coordinate" id="B2"></td>
-            <td class="coordinate" id="B3"></td>
-            <td class="coordinate" id="B4"></td>
-            <td class="coordinate" id="B5"></td>
-            <td class="coordinate" id="B6"></td>
-            <td class="coordinate" id="B7"></td>
-            <td class="coordinate" id="B8"></td>
-            <td class="coordinate" id="B9"></td>
-            <td class="coordinate" id="B10"></td>
-          </tr>
-          <tr>
-            <th>C</th>
-            <td class="coordinate" id="C1"></td>
-            <td class="coordinate" id="C2"></td>
-            <td class="coordinate" id="C3"></td>
-            <td class="coordinate" id="C4"></td>
-            <td class="coordinate" id="C5"></td>
-            <td class="coordinate" id="C6"></td>
-            <td class="coordinate" id="C7"></td>
-            <td class="coordinate" id="C8"></td>
-            <td class="coordinate" id="C9"></td>
-            <td class="coordinate" id="C10"></td>
-          </tr>
-          <tr>
-            <th>D</th>
-            <td class="coordinate" id="D1"></td>
-            <td class="coordinate" id="D2"></td>
-            <td class="coordinate" id="D3"></td>
-            <td class="coordinate" id="D4"></td>
-            <td class="coordinate" id="D5"></td>
-            <td class="coordinate" id="D6"></td>
-            <td class="coordinate" id="D7"></td>
-            <td class="coordinate" id="D8"></td>
-            <td class="coordinate" id="D9"></td>
-            <td class="coordinate" id="D10"></td>
-          </tr>
-          <tr>
-            <th>E</th>
-            <td class="coordinate" id="E1"></td>
-            <td class="coordinate" id="E2"></td>
-            <td class="coordinate" id="E3"></td>
-            <td class="coordinate" id="E4"></td>
-            <td class="coordinate" id="E5"></td>
-            <td class="coordinate" id="E6"></td>
-            <td class="coordinate" id="E7"></td>
-            <td class="coordinate" id="E8"></td>
-            <td class="coordinate" id="E9"></td>
-            <td class="coordinate" id="E10"></td>
-          </tr>
-          <tr>
-            <th>F</th>
-            <td class="coordinate" id="F1"></td>
-            <td class="coordinate" id="F2"></td>
-            <td class="coordinate" id="F3"></td>
-            <td class="coordinate" id="F4"></td>
-            <td class="coordinate" id="F5"></td>
-            <td class="coordinate" id="F6"></td>
-            <td class="coordinate" id="F7"></td>
-            <td class="coordinate" id="F8"></td>
-            <td class="coordinate" id="F9"></td>
-            <td class="coordinate" id="F10"></td>
-          </tr>
-          <tr>
-            <th>G</th>
-            <td class="coordinate" id="G1"></td>
-            <td class="coordinate" id="G2"></td>
-            <td class="coordinate" id="G3"></td>
-            <td class="coordinate" id="G4"></td>
-            <td class="coordinate" id="G5"></td>
-            <td class="coordinate" id="G6"></td>
-            <td class="coordinate" id="G7"></td>
-            <td class="coordinate" id="G8"></td>
-            <td class="coordinate" id="G9"></td>
-            <td class="coordinate" id="G10"></td>
-          </tr>
-          <tr>
-            <th>H</th>
-            <td class="coordinate" id="H1"></td>
-            <td class="coordinate" id="H2"></td>
-            <td class="coordinate" id="H3"></td>
-            <td class="coordinate" id="H4"></td>
-            <td class="coordinate" id="H5"></td>
-            <td class="coordinate" id="H6"></td>
-            <td class="coordinate" id="H7"></td>
-            <td class="coordinate" id="H8"></td>
-            <td class="coordinate" id="H9"></td>
-            <td class="coordinate" id="H10"></td>
-          </tr>
-          <tr>
-            <th>I</th>
-            <td class="coordinate" id="I1"></td>
-            <td class="coordinate" id="I2"></td>
-            <td class="coordinate" id="I3"></td>
-            <td class="coordinate" id="I4"></td>
-            <td class="coordinate" id="I5"></td>
-            <td class="coordinate" id="I6"></td>
-            <td class="coordinate" id="I7"></td>
-            <td class="coordinate" id="I8"></td>
-            <td class="coordinate" id="I9"></td>
-            <td class="coordinate" id="I10"></td>
-          </tr>
-          <tr>
-            <th>J</th>
-            <td class="coordinate" id="J1"></td>
-            <td class="coordinate" id="J2"></td>
-            <td class="coordinate" id="J3"></td>
-            <td class="coordinate" id="J4"></td>
-            <td class="coordinate" id="J5"></td>
-            <td class="coordinate" id="J6"></td>
-            <td class="coordinate" id="J7"></td>
-            <td class="coordinate" id="J8"></td>
-            <td class="coordinate" id="J9"></td>
-            <td class="coordinate" id="J10"></td>
           </tr>
         </table>
       </div>
 
-      <div class="container--side">
-        <div class="ships">
-          <h3>Ships</h3>
-          <ul>
-            <li class="ship">Carrier</li>
-            <li class="ship">Battleship</li>
-            <li class="ship">Cruiser</li>
-            <li class="ship">Submarine</li>
-            <li class="ship">Destroyer</li>
-          </ul>
-        </div>
-        <div class="status">
+      <div class="ships-list-container">
+        <h2 class="sub-heading">Ships</h2>
+        <ul id="ships-list" class="ships-list"></ul>
+        <div class="log">
           <p id="coordinate">Choose a coordinate</p>
-          <br />
           <p id="confirmation"></p>
-          <br />
           <p id="game-over"></p>
         </div>
       </div>
     </div>
-
-    <script src="battleship.js"></script>
   </body>
 </html>
