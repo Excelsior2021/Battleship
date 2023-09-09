@@ -74,31 +74,31 @@ function generateShipsList(ships) {
   active_ships = document.querySelectorAll(".ship-item")
 }
 
-function setPosition(ships) {
-  ships.forEach(ship => locations(ship, letters))
+function setPosition(ships, alreadyTaken) {
+  ships.forEach(ship => locations(ship, letters, alreadyTaken))
 }
 
-function locations(ship, letters) {
+function locations(ship, letters, alreadyTaken) {
   const direction = Math.floor(Math.random() * 2)
   if (direction === 0) horizontal(ship, letters)
   else if (direction === 1) vertical(ship, letters)
-  checkCollision(ship, letters)
+  checkCollision(ship, letters, alreadyTaken)
 }
 
 function horizontal(ship, letters) {
   const row = letters[Math.floor(Math.random() * 10)]
   const startPos = Math.floor(Math.random() * (10 - ship.size)) + 1
-  for (i = 0; i < ship.size; i++) ship.location.push(row + (startPos + i))
+  for (let i = 0; i < ship.size; i++) ship.location.push(row + (startPos + i))
 }
 
 function vertical(ship, letters) {
   const number = Math.floor(Math.random() * 10) + 1
   const startPos = Math.floor(Math.random() * (10 - ship.size))
-  for (i = 0; i < ship.size; i++)
+  for (let i = 0; i < ship.size; i++)
     ship.location.push(letters[startPos + i] + number)
 }
 
-function checkCollision(ship, letters) {
+function checkCollision(ship, letters, alreadyTaken) {
   ship.location.forEach(coordinate => {
     if (alreadyTaken.includes(coordinate)) {
       ship.location = []
@@ -130,7 +130,7 @@ function log(e) {
       "You have already shot this coordinate. Please select another coordinate!"
     coordinateLog.innerText = `Coordinate: ${id}`
   } else {
-    if (confirm(id)) {
+    if (confirmHit(id)) {
       coordinate.classList.add("hit")
       message.innerText = "You hit a ship!"
     } else {
@@ -146,7 +146,7 @@ function log(e) {
   }
 }
 
-function confirm(id) {
+function confirmHit(id, ships) {
   for (const ship of ships)
     for (const coordinate of ship.location) if (id === coordinate) return true
   return false
@@ -178,9 +178,30 @@ function sunk(ships, alreadyShot, message) {
 function startGame() {
   generateTable()
   generateShipsList(ships)
-  setPosition(ships)
+  setPosition(ships, alreadyTaken)
   addCoordEvents()
 }
 
-startGame()
-restart.onclick = () => location.reload()
+// startGame()
+// restart.onclick = () => location.reload()
+
+export default {
+  generateCoordNums,
+  generateTableCells,
+  generateTableRows,
+  generateTable,
+  generateShipsList,
+  setPosition,
+  locations,
+  horizontal,
+  vertical,
+  checkCollision,
+  gameOver,
+  addCoordEvents,
+  log,
+  confirmHit,
+  alreadyShotFunction,
+  sunk,
+}
+
+export const data = { ships, alreadyShot, alreadyTaken, letters }
