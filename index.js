@@ -3,10 +3,6 @@ const coordNums = document.getElementById("coord-nums")
 const shipsList = document.getElementById("ships-list")
 const restart = document.getElementById("restart-button")
 const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
-
-let coordinates
-let active_ships
-let count = 0
 const alreadyShot = []
 const alreadySunk = []
 const alreadyTaken = []
@@ -17,6 +13,14 @@ const ships = [
   { name: "Submarine", size: 3, location: [] },
   { name: "Destroyer", size: 2, location: [] },
 ]
+
+let coordinates
+let active_ships
+let coordinate
+let coordinateLog
+let message
+let game_over
+let count = 0
 
 function generateCoordNums() {
   for (let i = 1; i < 11; i++) {
@@ -49,9 +53,7 @@ function generateTableRows() {
     tr.appendChild(th)
 
     const tds = generateTableCells(letter)
-    for (const td of tds) {
-      tr.appendChild(td)
-    }
+    for (const td of tds) tr.appendChild(td)
     table.appendChild(tr)
   }
 }
@@ -69,39 +71,31 @@ function generateShipsList(ships) {
     shipItem.innerText = ship.name
     shipsList.appendChild(shipItem)
   }
-  active_ships = document.querySelectorAll(".ship")
+  active_ships = document.querySelectorAll(".ship-item")
 }
 
 function setPosition(ships) {
-  ships.forEach(ship => {
-    locations(ship, letters)
-  })
+  ships.forEach(ship => locations(ship, letters))
 }
 
 function locations(ship, letters) {
-  let direction = Math.floor(Math.random() * 2)
-  if (direction === 0) {
-    horizontal(ship, letters)
-  } else if (direction === 1) {
-    vertical(ship, letters)
-  }
+  const direction = Math.floor(Math.random() * 2)
+  if (direction === 0) horizontal(ship, letters)
+  else if (direction === 1) vertical(ship, letters)
   checkCollision(ship, letters)
 }
 
 function horizontal(ship, letters) {
   const row = letters[Math.floor(Math.random() * 10)]
   const startPos = Math.floor(Math.random() * (10 - ship.size)) + 1
-  for (i = 0; i < ship.size; i++) {
-    ship.location.push(row + (startPos + i))
-  }
+  for (i = 0; i < ship.size; i++) ship.location.push(row + (startPos + i))
 }
 
 function vertical(ship, letters) {
-  const startPos = Math.floor(Math.random() * (10 - ship.size))
   const number = Math.floor(Math.random() * 10) + 1
-  for (i = 0; i < ship.size; i++) {
+  const startPos = Math.floor(Math.random() * (10 - ship.size))
+  for (i = 0; i < ship.size; i++)
     ship.location.push(letters[startPos + i] + number)
-  }
 }
 
 function checkCollision(ship, letters) {
@@ -111,13 +105,7 @@ function checkCollision(ship, letters) {
       locations(ship, letters)
     }
   })
-  ship.location.forEach(coordinate => {
-    alreadyTaken.push(coordinate)
-  })
-}
-
-restart.onclick = () => {
-  location.reload()
+  ship.location.forEach(coordinate => alreadyTaken.push(coordinate))
 }
 
 function gameOver() {
@@ -125,83 +113,64 @@ function gameOver() {
 }
 
 function addCoordEvents() {
-  for (const coordinate of coordinates) {
-    coordinate.onclick = log
-  }
+  for (const coordinate of coordinates) coordinate.onclick = log
 }
 
-function log(evt) {
-  const id = evt.target.id
-  const coordinate = document.getElementById(id)
-  const player_coordinate = document.getElementById("coordinate")
-  const confirmation = document.getElementById("confirmation")
-  const game_over = document.getElementById("game-over")
+function log(e) {
+  const id = e.currentTarget.id
+  coordinate = document.getElementById(id)
+  coordinateLog = document.getElementById("coord-log")
+  message = document.getElementById("message")
+  game_over = document.getElementById("game-over")
 
   if (alreadySunk.length === ships.length) {
     gameOver()
   } else if (alreadyShotFunction(id, alreadyShot)) {
-    confirmation.innerHTML =
+    message.innerText =
       "You have already shot this coordinate. Please select another coordinate!"
-    player_coordinate.innerHTML = "Coordinate: " + id
+    coordinateLog.innerText = `Coordinate: ${id}`
   } else {
     if (confirm(id)) {
       coordinate.classList.add("hit")
-      confirmation.innerHTML = "You hit a ship!"
+      message.innerText = "You hit a ship!"
     } else {
       coordinate.classList.add("miss")
-      confirmation.innerHTML = "Missed!"
+      message.innerText = "Missed!"
     }
-    player_coordinate.innerHTML = "Coordinate: " + id
+    coordinateLog.innerText = `Coordinate: ${id}`
     count++
     alreadyShot.push(id)
-    sunk(ships, alreadyShot, confirmation)
-    if (alreadySunk.length === ships.length) {
-      game_over.innerHTML =
-        "You have completed the game. It took you " +
-        count +
-        " shots. Restart the game to play again."
-    }
+    sunk(ships, alreadyShot, message)
+    if (alreadySunk.length === ships.length)
+      game_over.innerText = `You have completed the game. It took you ${count} shots. Restart the game to play again.`
   }
 }
 
 function confirm(id) {
-  for (let ship of ships) {
-    for (let coordinate of ship.location) {
-      if (id === coordinate) {
-        return true
-      }
-    }
-  }
+  for (const ship of ships)
+    for (const coordinate of ship.location) if (id === coordinate) return true
   return false
 }
 
 function alreadyShotFunction(id, alreadyShot) {
-  for (let coordinate of alreadyShot) {
-    if (id === coordinate) {
-      return true
-    }
-  }
+  for (const coordinate of alreadyShot) if (id === coordinate) return true
   return false
 }
 
-function sunk(ships, alreadyShot, confirmation) {
-  for (let ship of ships) {
+function sunk(ships, alreadyShot, message) {
+  for (const ship of ships) {
     const check = []
-    for (let coordinateX of ship.location) {
-      for (let coordinateY of alreadyShot) {
-        if (coordinateX === coordinateY) {
-          check.push(coordinateX)
-        }
-      }
-    }
+    for (const coordinateX of ship.location)
+      for (const coordinateY of alreadyShot)
+        if (coordinateX === coordinateY) check.push(coordinateX)
+
     if (check.length === ship.size && !alreadySunk.includes(ship.name)) {
       alreadySunk.push(ship.name)
       active_ships.forEach(active_ship => {
-        if (ship.name == active_ship.innerHTML) {
+        if (ship.name == active_ship.innerText)
           active_ship.classList.add("sunk-ship")
-        }
       })
-      return (confirmation.innerHTML = "You sunk the " + ship.name + ".")
+      message.innerText = `You sunk the ${ship.name}.`
     }
   }
 }
@@ -214,3 +183,4 @@ function startGame() {
 }
 
 startGame()
+restart.onclick = () => location.reload()
