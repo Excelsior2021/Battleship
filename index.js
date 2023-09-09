@@ -74,15 +74,18 @@ function generateShipsList(ships) {
   active_ships = document.querySelectorAll(".ship-item")
 }
 
-function setPosition(ships) {
-  ships.forEach(ship => locations(ship, letters))
+function setPosition(ships, alreadyTaken) {
+  ships.forEach(ship => locations(ship, letters, alreadyTaken))
 }
 
-function locations(ship, letters) {
+function locations(ship, letters, alreadyTaken) {
   const direction = Math.floor(Math.random() * 2)
   if (direction === 0) horizontal(ship, letters)
   else if (direction === 1) vertical(ship, letters)
-  checkCollision(ship, letters)
+  if (checkCollision(ship, alreadyTaken)) {
+    ship.location = []
+    locations(ship, letters, alreadyTaken)
+  } else ship.location.forEach(coordinate => alreadyTaken.push(coordinate))
 }
 
 function horizontal(ship, letters) {
@@ -98,14 +101,11 @@ function vertical(ship, letters) {
     ship.location.push(letters[startPos + i] + number)
 }
 
-function checkCollision(ship, letters) {
+function checkCollision(ship, alreadyTaken) {
   ship.location.forEach(coordinate => {
-    if (alreadyTaken.includes(coordinate)) {
-      ship.location = []
-      locations(ship, letters)
-    }
+    if (alreadyTaken.includes(coordinate)) return true
   })
-  ship.location.forEach(coordinate => alreadyTaken.push(coordinate))
+  return false
 }
 
 function gameOver() {
@@ -178,7 +178,7 @@ function sunk(ships, alreadyShot, message) {
 function startGame() {
   generateTable()
   generateShipsList(ships)
-  setPosition(ships)
+  setPosition(ships, alreadyTaken)
   addCoordEvents()
 }
 
