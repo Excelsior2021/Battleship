@@ -1,11 +1,11 @@
 const tableEl = document.getElementById("table")
 const coordNumsEl = document.getElementById("coord-nums")
 const shipsListEl = document.getElementById("ships-list")
-const restartButtonEl = document.getElementById("restart-button")
 const coordinatesEl = document.getElementsByClassName("coord")
 const coordinateLog = document.getElementById("coord-log")
-const logMessage = document.getElementById("log-message")
+const logMessageEl = document.getElementById("log-message")
 const gameOverLog = document.getElementById("game-over")
+const restartButtonEl = document.getElementById("restart-button")
 const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
 const alreadyShot = []
 const alreadySunk = []
@@ -21,7 +21,7 @@ const ships = [
 let activeShipsEl = document.querySelectorAll(".ship-item")
 let count = 0
 
-function generateCoordNums() {
+function generateCoordNums(coordNumsEl) {
   for (let i = 1; i < 11; i++) {
     const th = document.createElement("th")
     th.classList.add("th")
@@ -41,7 +41,7 @@ function generateTableCells(letter) {
   return tds
 }
 
-function generateTableRows() {
+function generateTableRows(letters, tableEl) {
   for (let i = 0; i < 10; i++) {
     const letter = letters[i]
     const tr = document.createElement("tr")
@@ -57,9 +57,9 @@ function generateTableRows() {
   }
 }
 
-function generateTable() {
-  generateCoordNums()
-  generateTableRows()
+function generateTable(coordNumsEl, letters, tableEl) {
+  generateCoordNums(coordNumsEl)
+  generateTableRows(letters, tableEl)
 }
 
 function generateShipsList(ships) {
@@ -69,10 +69,10 @@ function generateShipsList(ships) {
     shipItem.innerText = ship.name
     shipsListEl.appendChild(shipItem)
   }
-  activeShipsEl = document.querySelectorAll(".ship-item")
+  return document.querySelectorAll(".ship-item")
 }
 
-function setPosition(ships, alreadyTaken) {
+function setPosition(ships, letters, alreadyTaken) {
   ships.forEach(ship => locations(ship, letters, alreadyTaken))
 }
 
@@ -106,7 +106,7 @@ function checkCollision(ship, alreadyTaken) {
 }
 
 function gameOver() {
-  removeEventListener("click", log)
+  removeEventListener("click", e => log(e, ships))
 }
 
 function addCoordEvent(ships, coordinatesEl) {
@@ -119,23 +119,23 @@ function log(e, ships) {
   const coordinateEl = document.getElementById(id)
 
   if (alreadySunk.length === ships.length) {
-    gameOver()
+    gameOver(e => log(e, ships))
   } else if (alreadyShotFunction(id, alreadyShot)) {
-    logMessage.innerText =
+    logMessageEl.innerText =
       "You have already shot this coordinate. Please select another coordinate!"
     coordinateLog.innerText = `Coordinate: ${id}`
   } else {
     if (confirmHit(id, ships)) {
       coordinateEl.classList.add("hit")
-      logMessage.innerText = "You hit a ship!"
+      logMessageEl.innerText = "You hit a ship!"
     } else {
       coordinateEl.classList.add("miss")
-      logMessage.innerText = "Missed!"
+      logMessageEl.innerText = "Missed!"
     }
     coordinateLog.innerText = `Coordinate: ${id}`
     count++
     alreadyShot.push(id)
-    sunk(ships, alreadyShot, logMessage)
+    sunk(ships, activeShipsEl, alreadyShot, alreadySunk, logMessageEl)
     if (alreadySunk.length === ships.length)
       gameOverLog.innerText = `You have completed the game. It took you ${count} shots. Restart the game to play again.`
   }
@@ -152,7 +152,7 @@ function alreadyShotFunction(id, alreadyShot) {
   return false
 }
 
-function sunk(ships, alreadyShot, logMessage) {
+function sunk(ships, activeShipsEl, alreadyShot, alreadySunk, logMessageEl) {
   for (const ship of ships) {
     const check = []
     for (const coordinateX of ship.location)
@@ -161,24 +161,24 @@ function sunk(ships, alreadyShot, logMessage) {
 
     if (check.length === ship.size && !alreadySunk.includes(ship.name)) {
       alreadySunk.push(ship.name)
-      activeShipsEl.forEach(active_ship => {
-        if (ship.name == active_ship.innerText)
-          active_ship.classList.add("sunk-ship")
+      activeShipsEl.forEach(activeShip => {
+        if (ship.name === activeShip.innerText)
+          activeShip.classList.add("sunk-ship")
       })
-      logMessage.innerText = `You sunk the ${ship.name}.`
+      logMessageEl.innerText = `You sunk the ${ship.name}.`
     }
   }
 }
 
 function startGame() {
-  generateTable()
-  generateShipsList(ships)
-  setPosition(ships, alreadyTaken)
+  generateTable(coordNumsEl, letters, tableEl)
+  activeShipsEl = generateShipsList(ships)
+  setPosition(ships, letters, alreadyTaken)
   addCoordEvent(ships, coordinatesEl)
 }
 
-// startGame()
-// restartButtonEl.onclick = () => location.reload()
+startGame()
+restartButtonEl.onclick = () => location.reload()
 
 export default {
   generateCoordNums,
@@ -199,4 +199,12 @@ export default {
   sunk,
 }
 
-export const data = { ships, alreadyShot, alreadyTaken, letters }
+export const data = {
+  ships,
+  activeShipsEl,
+  alreadyShot,
+  alreadyTaken,
+  alreadySunk,
+  letters,
+  logMessageEl,
+}
