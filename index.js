@@ -1,3 +1,5 @@
+import "./styles.css"
+
 const tableEl = document.getElementById("table")
 const coordNumsEl = document.getElementById("coord-nums")
 const shipsListEl = document.getElementById("ships-list")
