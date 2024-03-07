@@ -7,7 +7,7 @@
   </p>
 
 <h4>
-    <a href="https://github.com/Louis3797/awesome-readme-template/">View Project</a>
+    <a href="https://excelsior2021.github.io/battleship">View Project</a>
 </div>
 
 <br />
