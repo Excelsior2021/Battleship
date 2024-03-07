@@ -1,56 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="./assets/favicon.png" />
-    <script src="./dist/main.js" defer></script>
-    <title>Battleship</title>
-  </head>
-  <body>
-    <h1 class="heading">
-      <a
-        class="link"
-        href="https://jonathankila.vercel.app/"
-        target="_blank"
-        rel="noreferrer">
-        Battleship</a
-      >
-    </h1>
 
-    <div class="container">
-      <div class="instructions">
-        <h2 class="sub-heading">Instructions</h2>
-        <p>
-          Based on the classic game Battleship. There are 5 ships in the enemy's
-          fleet. Shoot down all the ships. Try to shoot down the enemy's fleet
-          in the least amount of shots.
-        </p>
-        <p>
-          Click on any coordinate to start. To restart the game, click the
-          button below.
-        </p>
-        <button class="restart-button" id="restart-button">Restart</button>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="./assets/favicon.png" />
+  <script src="./dist/main.js" defer></script>
+  <title>Battleship</title>
+</head>
 
-      <div class="game">
-        <table id="table" class="table">
-          <tr id="coord-nums">
-            <th></th>
-          </tr>
-        </table>
-      </div>
+<body>
+  <h1 class="heading">
+    <a class="link" href="https://jonathankila.vercel.app/" target="_blank" rel="noreferrer">
+      Battleship</a>
+  </h1>
 
-      <div class="ships-list-container">
-        <h2 class="sub-heading">Ships</h2>
-        <ul id="ships-list" class="ships-list"></ul>
-        <div class="log">
-          <p id="coord-log" class="coord-log">Choose a coordinate</p>
-          <p id="log-message" class="log-message"></p>
-          <p id="game-over"></p>
-        </div>
+  <div class="container">
+    <div class="instructions">
+      <h2 class="sub-heading">Instructions</h2>
+      <p>
+        Based on the classic game Battleship. There are 5 ships in the enemy's
+        fleet. Shoot down all the ships. Try to shoot down the enemy's fleet
+        in the least amount of shots.
+      </p>
+      <p>
+        Click on any coordinate to start. To restart the game, click the
+        button below.
+      </p>
+      <button class="restart-button" id="restart-button">Restart</button>
+    </div>
+
+    <div class="game">
+      <table id="table" class="table">
+        <tr id="coord-nums"></tr>
+      </table>
+    </div>
+
+    <div class="ships-list-container">
+      <h2 class="sub-heading">Ships</h2>
+      <ul id="ships-list" class="ships-list"></ul>
+      <div class="log">
+        <p id="coord-log" class="coord-log">Choose a coordinate</p>
+        <p id="log-message" class="log-message"></p>
+        <p id="game-over"></p>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

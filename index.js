@@ -24,10 +24,13 @@ let activeShipsEl = document.querySelectorAll(".ship-item")
 let count = 0
 
 function generateCoordNums(coordNumsEl) {
+  const th = document.createElement("th")
+  th.classList.add("th")
+  coordNumsEl.appendChild(th)
   for (let i = 1; i < 11; i++) {
     const th = document.createElement("th")
     th.classList.add("th")
-    th.innerText = i
+    th.innerText = i.toString()
     coordNumsEl.appendChild(th)
   }
 }
@@ -172,14 +175,13 @@ function sunk(ships, activeShipsEl, alreadyShot, alreadySunk, logMessageEl) {
   }
 }
 
-function startGame() {
+;(function startGame() {
   generateTable(coordNumsEl, letters, tableEl)
   activeShipsEl = generateShipsList(ships)
   setPosition(ships, letters, alreadyTaken)
   addCoordEvent(ships, coordinatesEl)
-}
+})()
 
-startGame()
 restartButtonEl.onclick = () => location.reload()
 
 export default {
@@ -203,10 +205,8 @@ export default {
 
 export const data = {
   ships,
-  activeShipsEl,
   alreadyShot,
   alreadyTaken,
   alreadySunk,
   letters,
-  logMessageEl,
 }

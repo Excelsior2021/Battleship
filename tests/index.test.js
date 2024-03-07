@@ -1,9 +1,23 @@
 import { expect, test } from "vitest"
+import bodyMock from "./bodyMock"
 import functions, { data } from "../index"
+
+const { document } = new Window()
+
+document.body.innerHTML = bodyMock
 
 const coordinate = "A3"
 const coordinate2 = "B1"
 const coordinates = ["B1", "B2", "B3", "B4", "B5"]
+
+//generateCoordNums
+test("coordinate numbers are generated", () => {
+  const coordNumsEl = document.getElementById("coord-nums")
+  functions.generateCoordNums(coordNumsEl)
+  expect(coordNumsEl.childNodes).toHaveLength(11)
+  expect(coordNumsEl.childNodes[1].innerHTML).toBe("1")
+  expect(coordNumsEl.childNodes[10].innerHTML).toBe("10")
+})
 
 //confirmHit
 test("ship is in the location of chosen coordinate", () => {
@@ -61,13 +75,13 @@ test("check for collisions is false", () => {
   expect(functions.checkCollision(ship, alreadyTaken)).toBeFalsy()
 })
 
-//sunk //WORK IN PROGESS
+//sunk
 test("ship has sunk", () => {
   const ships = JSON.parse(JSON.stringify(data.ships))
-  const activeShipsEl = JSON.parse(JSON.stringify(data.activeShipsEl))
+  const activeShipsEl = document.querySelectorAll(".ship-item")
   const alreadyShot = JSON.parse(JSON.stringify(data.alreadyShot))
   const alreadySunk = JSON.parse(JSON.stringify(data.alreadySunk))
-  const logMessageEl = JSON.parse(JSON.stringify(data.logMessageEl))
+  const logMessageEl = document.getElementById("log-message")
   const ship = ships[0]
 
   ship.location.push(...coordinates)
