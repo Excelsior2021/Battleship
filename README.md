@@ -42,6 +42,10 @@ The code is bundled with webpack. This was to learn how to implement module bund
 
 Vitest was used to perform unit testing. Using Vitest helped me to understand how to test functions but also how to mock the DOM as the DOM is not available outside browser environments.
 
+## Deployment
+
+This project was deployed with GitHub Pages as a static site.
+
 ## Enhancements
 
 This project can be enhanced with the following features:
