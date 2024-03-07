@@ -6,7 +6,6 @@
     A remake of the classic game battleship.
   </p>
 
-
 <h4>
     <a href="https://github.com/Louis3797/awesome-readme-template/">View Project</a>
 </div>
