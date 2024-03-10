@@ -28,7 +28,7 @@ This was my first project that used JavaScript. I wanted to build a web applicat
 
 - HTML
 - CSS
-- Vanilla JavaScript
+- JavaScript
 
 ### Dev
 
