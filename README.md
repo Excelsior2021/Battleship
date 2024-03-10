@@ -12,6 +12,8 @@
 
 <br />
 
+<img src="./assets/battleship-demo.png" alt="battleship demo" />
+
 <!-- About the Project -->
 
 ## Motivation
