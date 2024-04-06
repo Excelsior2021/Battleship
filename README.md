@@ -12,7 +12,7 @@
 
 <br />
 
-<img src="./assets/battleship-demo.png" alt="battleship demo" />
+<img src="battleship-demo.png" alt="battleship demo" />
 
 <!-- About the Project -->
 
