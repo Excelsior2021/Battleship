@@ -7,11 +7,9 @@
     "css-loader": "^6.8.1",
     "happy-dom": "^13.6.2",
     "style-loader": "^3.3.3",
+    "vite": "^5.2.8",
     "vitest": "^0.34.4",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
-  },
-  "dependencies": {
-    "vite": "^4.4.9"
   }
 }
