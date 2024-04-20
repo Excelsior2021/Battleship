@@ -18,7 +18,7 @@
 
 ## Motivation
 
-This was my first project that used JavaScript. I wanted to build a web application that focused on using JavaScript for DOM manipulation and application logic at a basic level. This project achieved this, solidified my understanding and set me up for building more web applications. I still work on projects such as this in order to improve my programming by implementing best practices and learning and implementing new concepts.
+This was my first project that used JavaScript. I wanted to build a web application that focused on using JavaScript for DOM manipulation and application logic at a basic level. This project achieved this and solidified my understanding and set me up for building more complex web applications. I still work on projects such as this in order to improve my programming by implementing best practices and learning and implementing new concepts.
 
 <!-- TechStack -->
 
@@ -38,11 +38,11 @@ This was my first project that used JavaScript. I wanted to build a web applicat
 
 ## Approach
 
-This project takes a functional approach and is event-driven (because it's a game). All the functions declared are pure functions apart from the entry point function `startGame()` which is also an IIFE (Immediately Invoked Function Expression).
+This project takes a functional approach and is event-driven (because it's a game). All the functions declared are pure functions apart from the entry point function `startGame()`, an IIFE (Immediately Invoked Function Expression).
 
-The code is bundled with webpack. This was to learn how to implement module bundling as this is not the case with frameworks that do this for you.
+The source code is bundled with webpack.
 
-Vitest was used to perform unit testing. Using Vitest helped me to understand how to test functions but also how to mock the DOM as the DOM is not available outside browser environments.
+Vitest was used to perform unit testing.
 
 ## Deployment
 
